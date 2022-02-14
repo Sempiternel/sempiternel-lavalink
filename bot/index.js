@@ -11,6 +11,7 @@ const client = new Client({
 
 client.manager = new Manager({
   plugins: [new Spotify(), new Filters()],
+  nodes: [{ host: process.env.LAVALINK_HOST }],
   send(id, payload) {
     const guild = client.guilds.cache.get(id);
     if (guild) guild.shard.send(payload);

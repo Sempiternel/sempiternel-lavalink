@@ -1,0 +1,19 @@
+services:
+  bot:
+    image: node
+    links:
+      - lavalink
+    volumes:
+      - ./bot:/usr/src/app
+    working_dir: /usr/src/app
+    environment:
+      - LAVALINK_HOST=lavalink
+    command: ["/bin/sh", "-c", "npm i && node ."]
+
+  lavalink:
+    image: fredboat/lavalink:dev
+    ports:
+      - "2333:2333"
+    volumes:
+      - ./application.yml:/opt/Lavalink/application.yml
+      - ./:/usr/src/app
