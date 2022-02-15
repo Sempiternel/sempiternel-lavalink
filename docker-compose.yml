@@ -1,7 +1,7 @@
 services:
   bot:
     image: node
-    links:
+    depends_on:
       - lavalink
     volumes:
       - ./bot:/usr/src/app

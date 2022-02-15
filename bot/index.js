@@ -31,6 +31,7 @@ for (const file of commandFiles) {
   client.commands.set(command.data.name, command);
 }
 
+dotenv.config();
 client.manager = new Manager({
   plugins: [new Spotify(), new Filters()],
   nodes: [{ host: process.env.LAVALINK_HOST }],
@@ -50,14 +51,17 @@ client.manager = new Manager({
   .on("trackStart", (player, track) => {
     client.channels.cache
       .get(player.textChannel)
-      .send(`Now playing: ${track.title}`);
+      .send(`Now playing \`${track.title}\` (${track.requester})`);
+
+    client.guilds.cache
+      .get(player.guild)
+      .me.setNickname(track.title.substring(0, 32));
   })
   .on("queueEnd", (player) => {
-    client.channels.cache.get(player.textChannel).send("Queue has ended.");
+    client.channels.cache.get(player.textChannel).send("Queue has ended");
 
     player.destroy();
   });
 client.on("raw", (d) => client.manager.updateVoiceState(d));
 
-dotenv.config();
 client.login(process.env.DISCORD_TOKEN);
