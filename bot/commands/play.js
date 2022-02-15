@@ -13,7 +13,7 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("input")
-        .setDescription("The music you want")
+        .setDescription("The music to look for")
         .setRequired(true)
     ),
   async execute(interaction) {
@@ -41,11 +41,12 @@ module.exports = {
     } else
       embed
         .setDescription(res.playlist.name)
-        .setImage(getThumbnail(res.playlist.selectedTrack || res.tracks[0]));
+        .setImage(getThumbnail(res.playlist.selectedTrack || res.tracks[0]))
+        .setFooter({ text: `${res.tracks.length} tracks added` });
 
     player.queue.add(res.tracks);
     if (!player.playing && !player.paused) player.play();
 
-    interaction.reply({ embeds: [embed], ephemeral: true });
+    interaction.reply({ embeds: [embed] });
   },
 };

@@ -49,21 +49,19 @@ client.manager = new Manager({
       `Node ${node.options.identifier} had an error: ${error.message}`
     )
   )
-  .on("trackStart", (player, track) => {
-    client.channels.cache
-      .get(player.textChannel)
-      .send(`Now playing \`${track.title}\` (${track.requester})`);
-
+  .on("trackStart", (player, track) =>
     client.guilds.cache
       .get(player.guild)
-      .me.setNickname(track.title.substring(0, 32));
-  })
-  .on("queueEnd", (player) => {
-    client.channels.cache.get(player.textChannel).send("Queue has ended");
+      .me.setNickname(track.title.substring(0, 32))
+  )
+  .on("queueEnd", (player) => player.disconnect())
+  .on("socketClosed", (player, payload) => {
+    if (!payload.byRemote) return;
+    player.destroy();
 
-    player.disconnect();
-  })
-  .on("socketClosed", (player) => player.destroy());
+    const guild = client.guilds.cache.get(player.guild);
+    if (guild.available) guild.me.setNickname(null);
+  });
 
 client.on("raw", (d) => client.manager.updateVoiceState(d));
 client.login(process.env.DISCORD_TOKEN);
