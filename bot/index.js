@@ -7,6 +7,7 @@ const Filters = require("erela.js-filters");
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
+  ws: { properties: { $os: "Android", $browser: "Discord Android" } },
 });
 
 const eventFiles = fs
@@ -60,8 +61,9 @@ client.manager = new Manager({
   .on("queueEnd", (player) => {
     client.channels.cache.get(player.textChannel).send("Queue has ended");
 
-    player.destroy();
-  });
-client.on("raw", (d) => client.manager.updateVoiceState(d));
+    player.disconnect();
+  })
+  .on("socketClosed", (player) => player.destroy());
 
+client.on("raw", (d) => client.manager.updateVoiceState(d));
 client.login(process.env.DISCORD_TOKEN);

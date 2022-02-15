@@ -27,6 +27,7 @@ module.exports = {
       guild: interaction.guild.id,
       voiceChannel: interaction.member.voice.channel.id,
       textChannel: interaction.channel.id,
+      selfDeafen: true,
     });
     player.connect();
 

@@ -12,6 +12,6 @@ module.exports = {
     if (!player) return;
 
     interaction.reply(`Skiping track \`${player.queue.current.title}\``);
-    player.stop(interaction.options.getInteger("input") || 1);
+    player.stop(interaction.options.getInteger("amount") || 1);
   },
 };
