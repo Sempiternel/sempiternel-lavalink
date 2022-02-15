@@ -1,5 +1,16 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
+const customFilter = {
+  daycore: {
+    op: "filters",
+    timescale: {
+      speed: 1,
+      pitch: 0.9,
+      rate: 1,
+    },
+  },
+};
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("filters")
@@ -12,6 +23,7 @@ module.exports = {
         .addChoices(
           [
             "nightcore",
+            "daycore",
             "vaporwave",
             "bassboost",
             "soft",
@@ -33,9 +45,12 @@ module.exports = {
     if (!player) return;
 
     const filter = interaction.options.getString("filter");
-
     if (filter == "reset") player.reset();
-    else player[filter] = true;
+    else if (customFilter[filter]) {
+      const data = customFilter[filter];
+      data.guildId = player.guild;
+      player.node.send(data);
+    } else player[filter] = true;
 
     interaction.reply("The equalizer has been set");
   },
