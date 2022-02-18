@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
 
 const getThumbnail = (track) => {
   if (track.displayThumbnail) return track.displayThumbnail("maxresdefault");
@@ -23,6 +23,8 @@ module.exports = {
     );
     if (!res.tracks.length) return;
 
+    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.CONNECT))
+      return;
     const player = interaction.client.manager.create({
       guild: interaction.guild.id,
       voiceChannel: interaction.member.voice.channel.id,

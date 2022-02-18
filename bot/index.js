@@ -1,9 +1,10 @@
 const fs = require("fs");
-const { Client, Collection, Intents } = require("discord.js");
+const { Client, Collection, Intents, Permissions } = require("discord.js");
 const dotenv = require("dotenv");
 const { Manager } = require("erela.js");
-const Spotify = require("better-erela.js-spotify").default;
 const Filters = require("erela.js-filters");
+const Spotify = require("better-erela.js-spotify").default;
+const Deezer = require("erela.js-deezer");
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
@@ -34,7 +35,7 @@ for (const file of commandFiles) {
 
 dotenv.config();
 client.manager = new Manager({
-  plugins: [new Spotify(), new Filters()],
+  plugins: [new Filters(), new Spotify(), new Deezer()],
   nodes: [{ host: process.env.LAVALINK_HOST }],
   send(id, payload) {
     const guild = client.guilds.cache.get(id);
@@ -49,18 +50,20 @@ client.manager = new Manager({
       `Node ${node.options.identifier} had an error: ${error.message}`
     )
   )
-  .on("trackStart", (player, track) =>
-    client.guilds.cache
-      .get(player.guild)
-      .me.setNickname(track.title.substring(0, 32))
-  )
+  .on("trackStart", (player, track) => {
+    const guild = client.guilds.cache.get(player.guild);
+    if (guild.me.permissions.has(Permissions.FLAGS.CHANGE_NICKNAME))
+      guild.me.setNickname(track.title.substring(0, 32));
+  })
   .on("queueEnd", (player) => player.disconnect())
   .on("socketClosed", (player, payload) => {
     if (!payload.byRemote) return;
     player.destroy();
 
     const guild = client.guilds.cache.get(player.guild);
-    if (guild.available) guild.me.setNickname(null);
+    if (!guild.available) return;
+    if (guild.me.permissions.has(Permissions.FLAGS.CHANGE_NICKNAME))
+      guild.me.setNickname(null);
   });
 
 client.on("raw", (d) => client.manager.updateVoiceState(d));
