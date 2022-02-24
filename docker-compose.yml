@@ -8,7 +8,7 @@ services:
     working_dir: /usr/src/app
     environment:
       - LAVALINK_HOST=lavalink
-    command: ["/bin/sh", "-c", "npm i && node ."]
+    command: ["/bin/sh", "-c", "yarn install && node ."]
 
   lavalink:
     image: fredboat/lavalink:dev
