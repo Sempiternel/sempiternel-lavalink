@@ -17,6 +17,7 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
+    if (!interaction.client.manager.leastUsedNodes.first()) return;
     const res = await interaction.client.manager.search(
       interaction.options.getString("input"),
       interaction.user

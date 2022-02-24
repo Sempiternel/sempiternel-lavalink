@@ -9,6 +9,7 @@ const Deezer = require("erela.js-deezer");
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
   ws: { properties: { $os: "Android", $browser: "Discord Android" } },
+  presence: { status: "dnd" },
 });
 
 const eventFiles = fs
@@ -33,6 +34,12 @@ for (const file of commandFiles) {
   client.commands.set(command.data.name, command);
 }
 
+const checkNode = () => {
+  if (client.manager.leastUsedNodes.first())
+    client.user.setPresence({ status: "online" });
+  else client.user.setPresence({ status: "idle" });
+};
+
 dotenv.config();
 client.manager = new Manager({
   plugins: [new Filters(), new Spotify(), new Deezer()],
@@ -42,9 +49,14 @@ client.manager = new Manager({
     if (guild) guild.shard.send(payload);
   },
 })
-  .on("nodeConnect", (node) =>
-    console.log(`Node ${node.options.identifier} connected`)
-  )
+  .on("nodeConnect", (node) => {
+    console.log(`Node ${node.options.identifier} connected`);
+    checkNode();
+  })
+  .on("nodeDisconnect", (node) => {
+    console.log(`Node ${node.options.identifier} disconnected`);
+    checkNode();
+  })
   .on("nodeError", (node, error) =>
     console.log(
       `Node ${node.options.identifier} had an error: ${error.message}`
