@@ -35,7 +35,6 @@ module.exports = {
     player.connect();
 
     const embed = new MessageEmbed();
-
     if (res.loadType != "PLAYLIST_LOADED") {
       res.tracks.splice(1, res.tracks.length - 1);
       embed

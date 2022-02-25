@@ -36,19 +36,24 @@ for (const file of commandFiles) {
 }
 
 const checkNode = () => {
+  const nodes = client.manager.nodes.filter((node) => node.connected).size;
+
   if (client.manager.leastUsedNodes.first())
-    client.user.setPresence({ status: "online" });
-  else client.user.setPresence({ status: "idle" });
+    client.user.setPresence({
+      status: "online",
+      activities: [{ name: `${nodes} nodes`, type: "WATCHING" }],
+    });
+  else client.user.setPresence({ status: "idle", activities: [] });
 };
 
 axios
   .get("https://lavalink.darrennathanael.com/api/servers.json")
   .then((json) => {
     json.data.ssl = json.data.ssl.map((node) => {
-      return { ...node, secure: true };
+      return { secure: true, ...node };
     });
-    json.data.ssl = json.data.ssl.map((node) => {
-      return { ...node, secure: false };
+    json.data.nossl = json.data.nossl.map((node) => {
+      return { secure: false, ...node };
     });
     const nodes = json.data.ssl.concat(json.data.nossl).map((node) => {
       return { ...node, port: Number(node.port) };
