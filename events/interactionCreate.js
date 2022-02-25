@@ -1,7 +1,7 @@
 module.exports = {
   name: "interactionCreate",
   async execute(interaction) {
-    if (!interaction.isCommand()) return;
+    if (!interaction.isCommand() || !interaction.inCachedGuild()) return;
 
     const command = interaction.client.commands.get(interaction.commandName);
     if (!command) return;
@@ -10,10 +10,13 @@ module.exports = {
       await command.execute(interaction);
     } catch (error) {
       console.error(error);
-      await interaction.reply({
+      const options = {
         content: "There was an error while executing this command!",
         ephemeral: true,
-      });
+      };
+      if (interaction.deferred || interaction.replied)
+        await interaction.editReply(options);
+      else await interaction.reply(options);
     }
   },
 };
