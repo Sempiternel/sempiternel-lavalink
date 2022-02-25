@@ -96,7 +96,7 @@ axios
         player.destroy();
 
         const guild = client.guilds.cache.get(player.guild);
-        if (!guild.available) return;
+        if (!guild) return;
         if (guild.me.permissions.has(Permissions.FLAGS.CHANGE_NICKNAME))
           guild.me.setNickname(null);
       });
