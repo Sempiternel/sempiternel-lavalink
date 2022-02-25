@@ -34,17 +34,19 @@ module.exports = {
     });
     player.connect();
 
-    const embed = new MessageEmbed();
+    const embed = new MessageEmbed().setFooter({
+      text: `Loaded on node '${player.node.options.identifier}'`,
+    });
     if (res.loadType != "PLAYLIST_LOADED") {
       res.tracks.splice(1, res.tracks.length - 1);
       embed
-        .setDescription(res.tracks[0].title)
+        .setAuthor(res.tracks[0].title)
         .setImage(getThumbnail(res.tracks[0]));
     } else
       embed
-        .setDescription(res.playlist.name)
+        .setAuthor(res.playlist.name)
         .setImage(getThumbnail(res.playlist.selectedTrack || res.tracks[0]))
-        .setFooter({ text: `${res.tracks.length} tracks added` });
+        .setDescription(`${res.tracks.length} tracks`);
 
     player.queue.add(res.tracks);
     if (!player.playing && !player.paused) player.play();

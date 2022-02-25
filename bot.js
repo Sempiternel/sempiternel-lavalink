@@ -60,7 +60,7 @@ axios
     json.data.nossl = json.data.nossl.map((node) => {
       return { secure: false, ...node };
     });
-    const nodes = json.data.ssl.concat(json.data.nossl).map((node) => {
+    const nodes = json.data.ssl.map((node) => {
       return { ...node, port: Number(node.port) };
     });
 
