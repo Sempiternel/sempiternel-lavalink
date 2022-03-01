@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 
 module.exports = {
-  name: "emptyNode",
+  name: "reloadNode",
   once: true,
   async execute(manager) {
     for (const pair of manager.nodes) manager.destroyNode(pair[0]);
@@ -17,8 +17,13 @@ module.exports = {
       return { secure: false, ...node };
     });
 
-    const nodes = json.data.ssl.concat(json.data.nossl).map((node) => {
-      return { ...node, port: Number(node.port) };
+    //.concat(json.data.nossl)
+    const nodes = json.data.ssl.map((node) => {
+      return {
+        ...node,
+        port: Number(node.port),
+        retryAmount: 0,
+      };
     });
 
     for (const option of nodes) {

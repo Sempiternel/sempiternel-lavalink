@@ -6,10 +6,19 @@ const Filters = require("erela.js-filters");
 const Spotify = require("better-erela.js-spotify").default;
 const Deezer = require("erela.js-deezer");
 
+const presence = {
+  status: "dnd",
+  activities: [
+    {
+      name: "loading",
+      type: "WATCHING",
+    },
+  ],
+};
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
   ws: { properties: { $os: "Android", $browser: "Discord Android" } },
-  presence: { status: "dnd" },
+  presence,
 });
 
 const eventFiles = fs
@@ -34,23 +43,21 @@ for (const file of commandFiles) {
   client.commands.set(command.data.name, command);
 }
 
+let nextUpdate = false;
 const checkNode = () => {
   const nodes = client.manager.nodes.filter((node) => node.connected).size;
-  const presence = {
-    status: "online",
-    activities: [
-      {
-        name: `${nodes} nodes | shards ${client.shard.ids.toString()}`,
-        type: "WATCHING",
-      },
-    ],
-  };
+  presence.activities[0].name = `${nodes} nodes | shards ${client.shard.ids.toString()}`;
 
   if (!client.manager.leastUsedNodes.first()) {
     presence.status = "idle";
-    client.emit("emptyNode", client.manager);
-  }
-  client.user.setPresence(presence);
+  } else presence.status = "online";
+
+  if (nextUpdate) return;
+  nextUpdate = true;
+  setTimeout(() => {
+    if (presence.status == "idle") client.emit("reloadNode", client.manager);
+    client.user.setPresence(presence);
+  }, 5 * 1000);
 };
 
 client.manager = new Manager({
@@ -67,6 +74,8 @@ client.manager = new Manager({
   })
   .on("nodeDisconnect", (node) => {
     console.log(`Node ${node.options.identifier} disconnected`);
+
+    client.manager.destroyNode(node.options.identifier);
     checkNode();
   })
   .on("nodeError", (node, error) =>
@@ -74,6 +83,9 @@ client.manager = new Manager({
       `Node ${node.options.identifier} had an error: ${error.message}`
     )
   )
+  .on("nodeDestroy", (node) => {
+    console.log(`Node ${node.options.identifier} destroy`);
+  })
   .on("trackStart", (player, track) => {
     const guild = client.guilds.cache.get(player.guild);
     if (guild.me.permissions.has(Permissions.FLAGS.CHANGE_NICKNAME))
