@@ -8,6 +8,12 @@ module.exports = {
 
     try {
       await command.execute(interaction);
+      if (
+        interaction.deferred &&
+        !interaction.replied &&
+        !interaction.ephemeral
+      )
+        await interaction.deleteReply();
     } catch (error) {
       console.error(error);
       const options = {

@@ -18,6 +18,8 @@ module.exports = {
     ),
   async execute(interaction) {
     if (!interaction.client.manager.leastUsedNodes.first()) return;
+    await interaction.deferReply();
+
     const res = await interaction.client.manager.search(
       interaction.options.getString("input"),
       interaction.user
@@ -51,6 +53,6 @@ module.exports = {
     player.queue.add(res.tracks);
     if (!player.playing && !player.paused) player.play();
 
-    interaction.reply({ embeds: [embed] });
+    await interaction.editReply({ embeds: [embed] });
   },
 };
