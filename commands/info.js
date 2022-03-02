@@ -102,7 +102,6 @@ const node = (interaction) => {
         inline: true,
       });
 
-    console.log(node.stats);
     fields.push({
       name: `🟢 ${node.options.identifier}`,
       value: [
