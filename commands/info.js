@@ -28,17 +28,13 @@ const general = async (interaction) => {
 
   const mem = await osu.mem.used();
   const embed = new MessageEmbed().addFields([
-    { name: "Guilds", value: String(results[0]), inline: true },
-    { name: "Members", value: String(results[1]), inline: true },
-    { name: "Players", value: String(results[2]), inline: true },
-
     { name: "OS", value: await osu.os.oos(), inline: true },
     {
       name: "CPU",
       value: [
         `Model: ${osu.cpu.model()}`,
         `Count: ${osu.cpu.count()}`,
-        `Usage: ${(await osu.cpu.usage()) * 100}%`,
+        `Usage: ${((await osu.cpu.usage()) * 100) / osu.cpu.count()}%`,
       ].join("\n"),
       inline: true,
     },
@@ -47,11 +43,15 @@ const general = async (interaction) => {
       value: `${kilo(mem.usedMemMb)}G /${kilo(mem.totalMemMb)}G`,
       inline: true,
     },
+
     {
       name: "Shards",
       value: String(interaction.client.shard.count),
       inline: true,
     },
+    { name: "Servers", value: String(results[0]), inline: true },
+    { name: "Members", value: String(results[1]), inline: true },
+    { name: "Streams", value: String(results[2]), inline: true },
   ]);
   return interaction.editReply({ embeds: [embed] });
 };

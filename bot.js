@@ -45,7 +45,7 @@ const eventManagerFiles = fs
   .filter((file) => file.endsWith(".js"));
 for (const file of eventManagerFiles) {
   const event = require(`./events_manager/${file}`);
-  client.manager.on(event.name, (...args) => event.execute(...args));
+  client.manager.on(event.name, (...args) => event.execute(client, ...args));
 }
 
 client.on("raw", (d) => client.manager.updateVoiceState(d));

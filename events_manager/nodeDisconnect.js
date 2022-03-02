@@ -1,9 +1,9 @@
 module.exports = {
   name: "nodeDisconnect",
-  execute(node) {
+  execute(client, node) {
     if (node.manager.nodes.filter((node) => node.connected).size) return;
 
-    for (const node of node.manager.nodes.filter((node) => !node.connected))
-      node.connect();
+    const nodes = node.manager.nodes.filter((node) => !node.connected);
+    for (const node of nodes) node.connect();
   },
 };

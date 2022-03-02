@@ -6,6 +6,7 @@ const permissions = [
   Permissions.FLAGS.VIEW_CHANNEL,
   Permissions.FLAGS.CONNECT,
   Permissions.FLAGS.SPEAK,
+  Permissions.FLAGS.SEND_MESSAGES,
   Permissions.FLAGS.CHANGE_NICKNAME,
 ];
 

@@ -1,6 +1,6 @@
 module.exports = {
   name: "nodeCreate",
-  execute(node) {
+  execute(client, node) {
     console.log(`Node ${node.options.identifier} created`);
   },
 };
