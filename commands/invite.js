@@ -20,7 +20,7 @@ module.exports = {
       permissions,
     });
     return interaction.reply({
-      content: `[Click here](${invite}) to invite the bot. :D`,
+      content: `[Click here](${invite}) to invite the bot 🥰`,
       ephemeral: true,
     });
   },

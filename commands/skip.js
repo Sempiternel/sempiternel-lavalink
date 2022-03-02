@@ -17,11 +17,11 @@ module.exports = {
     let amount = interaction.options.getInteger("amount") || 1;
     if (amount > player.queue.totalSize) amount = player.queue.totalSize;
 
-    if (amount > 1)
-      interaction.reply(
-        `Skiping ${amount} tracks \`${player.queue.current.title}\``
-      );
-    else interaction.reply(`Skiping track \`${player.queue.current.title}\``);
     player.stop(amount);
+    if (amount > 1) interaction.reply(`${amount} tracks were skipped`);
+    else
+      interaction.reply(
+        `The \`${player.queue.current.title}\` track was skipped`
+      );
   },
 };

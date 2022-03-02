@@ -34,7 +34,7 @@ const general = async (interaction) => {
       value: [
         `Model: ${osu.cpu.model()}`,
         `Count: ${osu.cpu.count()}`,
-        `Usage: ${((await osu.cpu.usage()) * 100) / osu.cpu.count()}%`,
+        `Usage: ${await osu.cpu.usage()}%`,
       ].join("\n"),
       inline: true,
     },

@@ -9,7 +9,7 @@ module.exports = {
     if (!player) return;
 
     player.pause(!player.paused);
-    if (player.paused) interaction.reply("The bot is now paused");
-    else interaction.reply("The bot is no longer paused");
+    if (player.paused) interaction.reply("The stream is now paused");
+    else interaction.reply("The stream is no longer paused");
   },
 };
