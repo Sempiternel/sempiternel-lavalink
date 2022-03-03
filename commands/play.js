@@ -112,6 +112,11 @@ module.exports = {
       default:
         return;
     }
+
+    if (!interaction.member.voice.channel)
+      return await interaction.editReply(
+        "You must be in a voice channel to listen to music!"
+      );
     await interaction.editReply({ content: null, embeds: [embed] });
 
     if (!interaction.member.voice.channel.joinable)
