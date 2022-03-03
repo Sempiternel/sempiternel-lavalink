@@ -3,7 +3,8 @@ const { Client, Collection, Intents, Permissions } = require("discord.js");
 const dotenv = require("dotenv");
 const { Manager } = require("erela.js");
 const Filters = require("erela.js-filters");
-const Spotify = require("better-erela.js-spotify").default;
+const { default: AppleMusic } = require("better-erela.js-apple");
+const { default: Spotify } = require("better-erela.js-spotify");
 const Deezer = require("erela.js-deezer");
 dotenv.config();
 
@@ -18,7 +19,7 @@ const client = new Client({
 });
 
 client.manager = new Manager({
-  plugins: [new Filters(), new Spotify(), new Deezer()],
+  plugins: [new Filters(), new AppleMusic(), new Spotify(), new Deezer()],
   nodes: [],
   send(id, payload) {
     const guild = client.guilds.cache.get(id);

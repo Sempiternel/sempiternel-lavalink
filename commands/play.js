@@ -3,11 +3,6 @@ const dayjs = require("dayjs");
 const { MessageEmbed, Permissions } = require("discord.js");
 dayjs.extend(require("dayjs/plugin/relativeTime"));
 
-const getThumbnail = (track) => {
-  if (track.displayThumbnail) return track.displayThumbnail("maxresdefault");
-  return track.thumbnail;
-};
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("play")
@@ -27,6 +22,7 @@ module.exports = {
       { source: "youtube", query: interaction.options.getString("input") },
       interaction.user
     );
+    console.log(result);
 
     const embed = new MessageEmbed();
     let track;
@@ -110,7 +106,7 @@ module.exports = {
         else embed.setImage(track.thumbnail);
         break;
       default:
-        return;
+        return await interaction.editReply(result.exception.message);
     }
 
     if (!interaction.member.voice.channel)
