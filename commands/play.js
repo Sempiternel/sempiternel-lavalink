@@ -22,7 +22,6 @@ module.exports = {
       { source: "youtube", query: interaction.options.getString("input") },
       interaction.user
     );
-    console.log(result);
 
     const embed = new MessageEmbed();
     let track;
@@ -106,7 +105,9 @@ module.exports = {
         else embed.setImage(track.thumbnail);
         break;
       default:
-        return await interaction.editReply(result.exception.message);
+        if (result.exception)
+          await interaction.editReply(result.exception.message);
+        return;
     }
 
     if (!interaction.member.voice.channel)
