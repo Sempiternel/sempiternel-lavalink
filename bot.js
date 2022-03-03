@@ -8,7 +8,11 @@ const Deezer = require("erela.js-deezer");
 dotenv.config();
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.GUILD_MESSAGES,
+  ],
   ws: { properties: { $os: "Android", $browser: "Discord Android" } },
   presence: { status: "dnd", activities: [{ name: "loading" }] },
 });

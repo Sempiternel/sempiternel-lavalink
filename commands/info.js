@@ -1,8 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const dayjs = require("dayjs");
 const { MessageEmbed } = require("discord.js");
-dayjs.extend(require("dayjs/plugin/relativeTime"));
 const osu = require("node-os-utils");
+dayjs.extend(require("dayjs/plugin/relativeTime"));
 
 const chunk = (arr, n) =>
   arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : [];
