@@ -44,9 +44,6 @@ module.exports = {
     const player = interaction.client.manager.get(interaction.guild.id);
     if (!player) return;
 
-    if (!(player.queue.current && player.queue.current.isSeekable))
-      return interaction.reply("This track is not seekable!");
-
     const filter = interaction.options.getString("filter");
     if (filter == "reset") player.reset();
     else if (customFilter[filter]) {

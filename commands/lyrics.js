@@ -14,7 +14,7 @@ module.exports = {
     if (!track) return;
 
     await interaction.deferReply();
-    const lyrics = (await lyricsFinder("", track.title)) || "Not Found!";
+    const lyrics = (await lyricsFinder("", track.query)) || "Not Found!";
 
     const chunk = [];
     {
@@ -30,8 +30,10 @@ module.exports = {
       if (current.length) chunk.push(current);
     }
 
-    await interaction.editReply({
-      embeds: chunk.map((lyrics) => new MessageEmbed().setDescription(lyrics)),
-    });
+    const embeds = chunk.map((lyrics) =>
+      new MessageEmbed().setDescription(lyrics)
+    );
+    embeds[0].setTitle(track.query);
+    await interaction.editReply({ embeds });
   },
 };
