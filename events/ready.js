@@ -19,8 +19,7 @@ module.exports = {
       return { secure: false, ...node };
     });
 
-    //.concat(json.data.nossl)
-    const nodes = json.data.ssl.map((node) => {
+    const nodes = json.data.ssl.concat(json.data.nossl).map((node) => {
       return { ...node, port: Number(node.port) };
     });
 
