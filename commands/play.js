@@ -3,13 +3,6 @@ const dayjs = require("dayjs");
 const { MessageEmbed, Permissions } = require("discord.js");
 dayjs.extend(require("dayjs/plugin/relativeTime"));
 
-const parse = (title) => {
-  const array = title.split(/[^a-z| |-]/i);
-  const item = array.find((element) => /(.+) - (.+)/.test(element));
-  if (item) return item;
-  return title;
-};
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("play")
@@ -128,14 +121,6 @@ module.exports = {
       selfDeafen: true,
     });
     player.connect();
-
-    result.tracks.forEach((track) => {
-      let query = track.title;
-      if (!/(.+) - (.+)/.test(query))
-        query = `${track.author.replace(" - Topic", "")} - ${query}`;
-
-      track.query = parse(query);
-    });
     player.queue.add(result.tracks);
 
     if (!player.playing && !player.paused) player.play();
