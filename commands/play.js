@@ -6,7 +6,8 @@ dayjs.extend(require("dayjs/plugin/relativeTime"));
 const parse = (title) => {
   const array = title.split(/[^a-z| |-]/i);
   const item = array.find((element) => /(.+) - (.+)/.test(element));
-  return item;
+  if (item) return item;
+  return title;
 };
 
 module.exports = {
