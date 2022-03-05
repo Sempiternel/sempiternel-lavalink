@@ -11,7 +11,13 @@ module.exports = {
   name: "trackStart",
   execute(client, player, track) {
     const channel = client.channels.cache.get(player.textChannel);
-    channel.send(`Now play the music \`${track.title}\``);
+    if (!channel) return;
+    if (
+      channel
+        .permissionsFor(channel.guild.me)
+        .has(Permissions.FLAGS.SEND_MESSAGES)
+    )
+      channel.send(`Now play the music \`${track.title}\``);
 
     let query = track.title;
     if (!/(.+) - (.+)/.test(query))

@@ -28,28 +28,36 @@ module.exports = {
     switch (result.loadType) {
       case "SEARCH_RESULT":
         let index = 0;
-        const reply = ["What music do you want? (give me the number)"];
-        result.tracks
-          .map((track) => `${++index}. \`${track.title}\``)
-          .forEach((line) => reply.push(line));
-        await interaction.editReply(reply.join("\n"));
-        const collector = await interaction.channel
-          .awaitMessages({
-            filter: (message) => message.author.id == interaction.user.id,
-            max: 1,
-            time: 60 * 1000,
-            errors: ["time"],
-          })
-          .catch(() => {});
-        if (!collector)
-          return await interaction.editReply("No search response");
 
-        index = Number(collector.first().content);
-        if (isNaN(index) || index < 1 || index > result.tracks.length)
-          return await interaction.editReply(
-            `Couldn't find the music for number ${collector.first().content}`
-          );
-        result.tracks = [result.tracks[index - 1]];
+        if (
+          interaction.channel
+            .permissionsFor(interaction.guild.me)
+            .has(Permissions.FLAGS.VIEW_CHANNEL)
+        ) {
+          const reply = ["What music do you want? (give me the number)"];
+          result.tracks
+            .map((track) => `${++index}. \`${track.title}\``)
+            .forEach((line) => reply.push(line));
+          await interaction.editReply(reply.join("\n"));
+          const collector = await interaction.channel
+            .awaitMessages({
+              filter: (message) => message.author.id == interaction.user.id,
+              max: 1,
+              time: 60 * 1000,
+              errors: ["time"],
+            })
+            .catch(() => {});
+          if (!collector)
+            return await interaction.editReply("No search response");
+
+          index = Number(collector.first().content);
+          if (isNaN(index) || index < 1 || index > result.tracks.length)
+            return await interaction.editReply(
+              `Couldn't find the music for number ${collector.first().content}`
+            );
+          --index;
+        }
+        result.tracks = [result.tracks[index]];
 
       case "TRACK_LOADED":
         track = result.tracks[0];
