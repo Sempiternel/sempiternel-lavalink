@@ -114,11 +114,15 @@ module.exports = {
     if (!interaction.member.voice.channel.joinable)
       return await interaction.editReply("Unable to join the channel");
 
+    const nodes = interaction.client.manager.leastLoadNodes.sort(
+      (a, b) => b.options.secure - a.options.secure
+    );
     const player = interaction.client.manager.create({
       guild: interaction.guild.id,
       voiceChannel: interaction.member.voice.channel.id,
       textChannel: interaction.channel.id,
       selfDeafen: true,
+      node: nodes.first().options.identifier,
     });
     player.connect();
     player.queue.add(result.tracks);
