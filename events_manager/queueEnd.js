@@ -1,3 +1,5 @@
+const { Permissions } = require("discord.js");
+
 module.exports = {
   name: "queueEnd",
   execute(client, player) {

@@ -1,3 +1,5 @@
+const { Permissions } = require("discord.js");
+
 module.exports = {
   name: "trackError",
   execute(client, player, track, payload) {
