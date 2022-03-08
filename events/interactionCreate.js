@@ -8,6 +8,7 @@ module.exports = {
 
     try {
       await command.execute(interaction);
+      await interaction.fetchReply();
       if (!interaction.replied) {
         const content =
           "The command did not respond, did you use the command correctly?";
