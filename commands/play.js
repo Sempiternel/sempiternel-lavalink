@@ -12,10 +12,17 @@ module.exports = {
         .setName("input")
         .setDescription("The music to look for")
         .setRequired(true)
+    )
+    .addStringOption((option) =>
+      option.setName("node").setDescription("The node to use")
     ),
   async execute(interaction) {
     if (!interaction.client.manager.nodes.filter((node) => node.connected).size)
       return;
+
+    let node = interaction.options.getString("node");
+    if (node && !interaction.client.manager.nodes.get(node))
+      return await interaction.reply(`Could not find node \`${node}\`.`);
     await interaction.deferReply();
 
     const result = await interaction.client.manager.search(
@@ -122,15 +129,16 @@ module.exports = {
     if (!interaction.member.voice.channel.joinable)
       return await interaction.editReply("Unable to join the channel");
 
-    const nodes = interaction.client.manager.leastLoadNodes.sort(
-      (a, b) => b.options.secure - a.options.secure
-    );
     const player = interaction.client.manager.create({
       guild: interaction.guild.id,
       voiceChannel: interaction.member.voice.channel.id,
       textChannel: interaction.channel.id,
       selfDeafen: true,
-      node: nodes.first().options.identifier,
+      node:
+        node ||
+        interaction.client.manager.leastLoadNodes
+          .sort((a, b) => b.options.secure - a.options.secure)
+          .first().options.identifier,
     });
     player.connect();
     player.queue.add(result.tracks);

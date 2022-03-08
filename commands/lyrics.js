@@ -5,16 +5,27 @@ const lyricsFinder = require("lyrics-finder");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("lyrics")
-    .setDescription("See lyrics"),
+    .setDescription("See lyrics")
+    .addStringOption((option) =>
+      option.setName("title").setDescription("Music title")
+    )
+    .addStringOption((option) =>
+      option.setName("artist").setDescription("Music artist")
+    ),
   async execute(interaction) {
-    const player = interaction.client.manager.get(interaction.guild.id);
-    if (!player) return;
+    let title = interaction.options.getString("title") || "";
+    const artist = interaction.options.getString("artist") || "";
 
-    const track = player.queue.current;
-    if (!track) return;
+    if (!title.length) {
+      const player = interaction.client.manager.get(interaction.guild.id);
+      if (!player) return;
+      const track = player.queue.current;
+      if (!track) return;
+      title = track.query;
+    }
 
     await interaction.deferReply();
-    const lyrics = (await lyricsFinder("", track.query)) || "Not Found!";
+    const lyrics = (await lyricsFinder(artist, title)) || "Not Found!";
 
     const chunk = [];
     {
@@ -33,7 +44,8 @@ module.exports = {
     const embeds = chunk.map((lyrics) =>
       new MessageEmbed().setDescription(lyrics)
     );
-    embeds[0].setTitle(track.query);
+    if (artist.length) title = `${artist} - ${title}`;
+    embeds[0].setTitle(title);
     await interaction.editReply({ embeds });
   },
 };
