@@ -20,7 +20,7 @@ module.exports = {
     });
 
     const nodes = json.data.ssl.concat(json.data.nossl).map((node) => {
-      return { ...node, port: Number(node.port) };
+      return { ...node, port: Number(node.port), retryDelay: 60 * 60 * 1000 };
     });
 
     for (const option of nodes) {
