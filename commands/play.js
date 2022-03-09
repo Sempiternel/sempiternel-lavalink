@@ -21,8 +21,13 @@ module.exports = {
       return;
 
     let node = interaction.options.getString("node");
-    if (node && !interaction.client.manager.nodes.get(node))
-      return await interaction.reply(`Could not find node \`${node}\`.`);
+    if (node) {
+      const nodeInstance = interaction.client.manager.nodes.get(node);
+      if (!nodeInstance)
+        return await interaction.reply(`Could not find node \`${node}\``);
+      if (!nodeInstance.connected)
+        return await interaction.reply(`\`${node}\` node is not online`);
+    }
     await interaction.deferReply();
 
     const result = await interaction.client.manager.search(
@@ -134,11 +139,7 @@ module.exports = {
       voiceChannel: interaction.member.voice.channel.id,
       textChannel: interaction.channel.id,
       selfDeafen: true,
-      node:
-        node ||
-        interaction.client.manager.leastLoadNodes
-          .sort((a, b) => b.options.secure - a.options.secure)
-          .first().options.identifier,
+      node,
     });
     player.connect();
     player.queue.add(result.tracks);
