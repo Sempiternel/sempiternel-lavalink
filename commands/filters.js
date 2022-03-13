@@ -5,7 +5,15 @@ const customFilter = {
     op: "filters",
     timescale: {
       speed: 1,
-      pitch: 0.9,
+      pitch: 0.8,
+      rate: 1,
+    },
+  },
+  slowed: {
+    op: "filters",
+    timescale: {
+      speed: 0.7,
+      pitch: 0.7,
       rate: 1,
     },
   },
@@ -22,8 +30,9 @@ module.exports = {
         .setRequired(true)
         .addChoices(
           [
-            "nightcore",
             "daycore",
+            "slowed",
+            "nightcore",
             "vaporwave",
             "bassboost",
             "soft",
