@@ -103,14 +103,16 @@ const node = (interaction) => {
 			});
 		}
 
+		console.log(node1);
+
 		fields.push({
-			name: `🟢 ${node.options.identifier}`,
+			name: `🟢 ${node1.options.identifier}`,
 			value: [
-				`Players: ${node.stats.players}`,
-				`Up Time: ${dayjs().millisecond(node.stats.uptime).fromNow(true)}`,
-				`CPU: ${Math.floor(node.stats.cpu.lavalinkLoad * 100)}%`,
-				`Memory: ${giga(node.stats.memory.used)}G /${giga(
-					node.stats.memory.allocated,
+				`Players: ${node1.stats.players}`,
+				`Up Time: ${dayjs().millisecond(node1.stats.uptime).fromNow(true)}`,
+				`CPU: ${Math.floor(node1.stats.cpu.lavalinkLoad * 100)}%`,
+				`Memory: ${giga(node1.stats.memory.used)}G /${giga(
+					node1.stats.memory.allocated,
 				)}G`,
 			].join('\n'),
 			inline: true,
