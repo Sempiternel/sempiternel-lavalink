@@ -116,12 +116,10 @@ module.exports = {
 				);
 			}
 			if (track.displayThumbnail) {embed.setImage(track.displayThumbnail('maxresdefault'));}
-			else {
-				embed.setImage(track.thumbnail);
-			}
+			else {embed.setImage(track.thumbnail);}
 			break;
 		default:
-			if (result.exception) {await interaction.editReply(result.exception.message);}
+			if (result.exception) await interaction.editReply(result.exception.message);
 			return;
 		}
 
