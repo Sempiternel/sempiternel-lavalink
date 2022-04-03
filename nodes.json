@@ -1,0 +1,114 @@
+{
+  "ssl": [
+    {
+      "host": "usui-linku.kadantte.moe",
+      "port": 443,
+      "password": "Usui#0256",
+      "secure": true
+    },
+    {
+      "host": "lavalink.oops.wtf",
+      "port": 443,
+      "password": "www.freelavalink.ga",
+      "secure": true
+    },
+    {
+      "host": "node01.marshalxp.xyz",
+      "port": 443,
+      "password": "marshal",
+      "secure": true
+    },
+    {
+      "host": "node02.marshalxp.xyz",
+      "port": 443,
+      "password": "marshal",
+      "secure": true
+    },
+    {
+      "host": "node03.marshalxp.xyz",
+      "port": 443,
+      "password": "marshal",
+      "secure": true
+    },
+    {
+      "host": "node1.kartadharta.xyz",
+      "port": 443,
+      "password": "kdlavalink",
+      "secure": true
+    }
+  ],
+  "nossl": [
+    {
+      "host": "weez-node.cf",
+      "port": 2333,
+      "password": "FreeLava",
+      "secure": false
+    },
+    {
+      "host": "lavalink-coders.ml",
+      "port": 80,
+      "password": "janemon",
+      "secure": false
+    },
+    {
+      "host": "us1.lavalink.creavite.co",
+      "port": 20080,
+      "password": "auto.creavite.co",
+      "secure": false
+    },
+    {
+      "host": "lavalink.oops.wtf",
+      "port": 2000,
+      "password": "www.freelavalink.ga",
+      "secure": false
+    },
+    {
+      "host": "losingtime.dpaste.org",
+      "port": 2124,
+      "password": "SleepingOnTrains",
+      "secure": false
+    },
+    {
+      "host": "lavamusic.lavalinks.xyz",
+      "port": 80,
+      "password": "LAVA",
+      "secure": false
+    },
+    {
+      "host": "lava.link",
+      "port": 80,
+      "password": "123",
+      "secure": false
+    },
+    {
+      "host": "lavalink.islantay.tk",
+      "port": 8880,
+      "password": "waifufufufu",
+      "secure": false
+    },
+    {
+      "host": "usa.lavalink.mitask.tech",
+      "port": 2333,
+      "password": "lvserver",
+      "secure": false
+    },
+    {
+      "host": "node1.annnekkk.tech",
+      "port": 17131,
+      "password": "youshallnotpass",
+      "secure": false
+    },
+    {
+      "host": "f1lavalink.ratiohost.gq",
+      "port": 1860,
+      "password": "BITS_Network|Node1",
+      "secure": false
+    },
+    {
+      "host": "f2lavalink.ratiohost.gq",
+      "port": 50070,
+      "password": "BITS_Network|Node2",
+      "secure": false
+    }
+  ]
+}

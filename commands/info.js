@@ -103,8 +103,6 @@ const node = (interaction) => {
 			});
 		}
 
-		console.log(node1);
-
 		fields.push({
 			name: `🟢 ${node1.options.identifier}`,
 			value: [
