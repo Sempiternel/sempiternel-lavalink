@@ -23,6 +23,6 @@ module.exports = {
 		if (index > player.queue.size || to > player.queue.size) return;
 
 		const tracks = player.queue.remove(index, to);
-		interaction.reply(`${tracks.size} tracks have been removed`);
+		return interaction.reply(`${tracks.size} tracks have been removed`);
 	},
 };

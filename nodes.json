@@ -2,29 +2,82 @@
   "ssl": [
     {
       "host": "usui-linku.kadantte.moe",
-      "port": 443,
-      "password": "Usui#0256",
-      "secure": true
+      "password": "Usui#0256"
+    },
+    {
+      "host": "connect.freelavalink.ga",
+      "password": "www.freelavalink.ga"
+    },
+    {
+      "host": "node01.marshalxp.xyz",
+      "password": "marshal"
+    },
+    {
+      "host": "node02.marshalxp.xyz",
+      "password": "marshal"
+    },
+    {
+      "host": "node03.marshalxp.xyz",
+      "password": "marshal"
     },
     {
       "host": "node1.kartadharta.xyz",
-      "port": 443,
-      "password": "kdlavalink",
-      "secure": true
+      "password": "kdlavalink"
     }
   ],
   "nossl": [
     {
-      "host": "f1lavalink.ratiohost.gq",
-      "port": 1860,
-      "password": "BITS_Network|Node1",
-      "secure": false
+      "host": "weez-node.cf",
+      "password": "FreeLava"
     },
     {
-      "host": "f2lavalink.ratiohost.gq",
-      "port": 50070,
-      "password": "BITS_Network|Node2",
-      "secure": false
+      "host": "lavalink-coders.ml",
+      "password": "janemon",
+      "port": 80
+    },
+    {
+      "host": "us1.lavalink.creavite.co",
+      "password": "auto.creavite.co",
+      "port": 20080
+    },
+    {
+      "host": "lavalink.oops.wtf",
+      "password": "www.freelavalink.ga",
+      "port": 2000
+    },
+    {
+      "host": "kerosine.darrennathanael.com",
+      "password": "SleepingOnTrains",
+      "port": 2124
+    },
+    {
+      "host": "lavamusic.lavalinks.xyz",
+      "password": "LAVA",
+      "port": 80
+    },
+    {
+      "host": "lava.link",
+      "password": "123",
+      "port": 80
+    },
+    {
+      "host": "lavalink.islantay.tk",
+      "password": "waifufufufu",
+      "port": 8880
+    },
+    {
+      "host": "usa.lavalink.mitask.tech",
+      "password": "lvserver"
+    },
+    {
+      "host": "node1.annnekkk.tech",
+      "password": "youshallnotpass",
+      "port": 17131
+    },
+    {
+      "host": "uk1.buckytm.com",
+      "password": "f82263yh75f6r5",
+      "port": 28112
     }
   ]
 }

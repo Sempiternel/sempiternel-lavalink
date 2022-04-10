@@ -9,7 +9,9 @@ module.exports = {
 
 		client.manager.init(client.user.id);
 
-		const nodes1 = nodes.ssl.concat(nodes.nossl).map((node) => {
+		const nodes1 = nodes.ssl.map(node => {
+			return { ...node, port: 443, secure: true };
+		}).concat(nodes.nossl).map((node) => {
 			return { ...node, retryDelay: 60 * 60 * 1000 };
 		});
 

@@ -9,6 +9,6 @@ module.exports = {
 		if (!player) return;
 
 		player.queue.shuffle();
-		interaction.reply('The queue is now shuffled');
+		return interaction.reply('The queue is now shuffled');
 	},
 };

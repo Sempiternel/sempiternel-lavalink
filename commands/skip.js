@@ -14,7 +14,7 @@ module.exports = {
 		if (amount > player.queue.totalSize) amount = player.queue.totalSize;
 
 		player.stop(amount);
-		if (amount > 1) interaction.reply(`${amount} tracks were skipped`);
-		else interaction.reply(`The \`${player.queue.current.title}\` track was skipped`);
+		if (amount > 1) return interaction.reply(`${amount} tracks were skipped`);
+		else return interaction.reply(`The \`${player.queue.current.title}\` track was skipped`);
 	},
 };

@@ -17,6 +17,6 @@ module.exports = {
 
 		const percent = interaction.options.getInteger('percent');
 		player.setVolume(percent);
-		interaction.reply(`Stream volume is now ${percent}%`);
+		return interaction.reply(`Stream volume is now ${percent}%`);
 	},
 };

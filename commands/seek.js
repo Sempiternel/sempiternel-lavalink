@@ -18,6 +18,6 @@ module.exports = {
 
 		const seconds = interaction.options.getInteger('seconds');
 		player.seek(seconds * 1000);
-		interaction.reply(`The current track is now at ${seconds} seconds`);
+		return interaction.reply(`The current track is now at ${seconds} seconds`);
 	},
 };

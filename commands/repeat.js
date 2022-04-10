@@ -20,7 +20,7 @@ module.exports = {
 		if (type == 'track') player.setTrackRepeat(bool);
 		else player.setQueueRepeat(bool);
 
-		if (bool) interaction.reply(`The ${type} is now repeated`);
-		else interaction.reply(`The ${type} is no longer repeated`);
+		if (bool) return interaction.reply(`The ${type} is now repeated`);
+		else return interaction.reply(`The ${type} is no longer repeated`);
 	},
 };

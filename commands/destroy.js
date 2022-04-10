@@ -9,6 +9,6 @@ module.exports = {
 		if (!player) return;
 
 		player.destroy();
-		interaction.reply('The stream has been destroyed!');
+		return interaction.reply('The stream has been destroyed!');
 	},
 };

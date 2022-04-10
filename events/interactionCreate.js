@@ -16,7 +16,6 @@ module.exports = {
 			}
 		}
 		catch (error) {
-			console.error(error);
 			const options = { content: 'There was an error while executing this command!', ephemeral: true };
 			// eslint-disable-next-line no-empty-function
 			if (interaction.deferred || interaction.replied) {await interaction.editReply(options).catch(() => {});}

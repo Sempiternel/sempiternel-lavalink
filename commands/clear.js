@@ -9,6 +9,6 @@ module.exports = {
 		if (!player) return;
 
 		player.queue.clear();
-		interaction.reply('The queue is now cleared');
+		return interaction.reply('The queue is now cleared');
 	},
 };

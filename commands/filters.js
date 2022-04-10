@@ -62,6 +62,6 @@ module.exports = {
 		}
 		else {player[filter] = true;}
 
-		interaction.reply('The equalizer has been set');
+		return interaction.reply('The equalizer has been set');
 	},
 };
