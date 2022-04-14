@@ -5,9 +5,6 @@ module.exports = {
 	once: true,
 	async execute(client) {
 		console.log(`Ready! Logged in as ${client.user.tag}`);
-		client.user.setPresence({ activities: [], status: 'online' });
-
-		client.manager.init(client.user.id);
 
 		const nodes1 = nodes.ssl.map(node => {
 			return { ...node, port: 443, secure: true };
@@ -15,6 +12,7 @@ module.exports = {
 			return { ...node, retryDelay: 60 * 60 * 1000 };
 		});
 
+		client.manager.init(client.user.id);
 		for (const option of nodes1) {
 			const node = client.manager.createNode(option);
 			node.connect();

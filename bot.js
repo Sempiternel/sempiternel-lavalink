@@ -15,7 +15,6 @@ const client = new Client({
 		Intents.FLAGS.GUILD_MESSAGES,
 	],
 	ws: { properties: { $os: 'Android', $browser: 'Discord Android' } },
-	presence: { status: 'dnd', activities: [{ name: 'loading' }] },
 });
 
 client.manager = new Manager({
